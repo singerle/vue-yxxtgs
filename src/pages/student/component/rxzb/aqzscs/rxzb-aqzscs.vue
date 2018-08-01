@@ -2,6 +2,10 @@
 <!-- 通过display显示隐藏实现默认，对，错显示图标 -->
 <template>
   <div v-if="info[num] && info[num].title" class="wrap" :style="errorShow?'background:#fff':'background:#f7f7f7'" >
+  	<!-- <Popup v-if="popupShow" @event="closePopup">
+  		<img src="static/student-index-pictures/aqzscs-pic.png">
+  		<p>欢迎同学们进入安全教育知识问测试节。为了提高同学们的安全防范意识和自我保护能力，增强安全常识与技能，我们特设置了此安全知识测试环节，同学们加油认真答题哦！</p>
+  	</Popup> -->
   	<div class="contents" v-if="!completeShow">
   		<h3 class="title">{{num+1+'.'+info[num].title}}</h3>
   		<ul>
@@ -37,23 +41,24 @@
 		<p>恭喜您&nbsp;完成&nbsp;安全知识测试&nbsp;&nbsp;项目</p>
 		<p>共&nbsp;<span>{{info.length}}</span>&nbsp;题&nbsp;<span class="green">正确</span><span class="correctNum">{{info.length-countFalse}}</span>题&nbsp;<span class="red">错误</span><span class="errorNum">{{countFalse}}</span>题
 		</p>
-		<router-link to="/index">
-		  	<div class="return">
-		  		<span>返回首页</span>
-		  	</div>
-		</router-link>
+	  	<div class="return" @click="$router.go(-1)">
+	  		<span>返回首页</span>
+	  	</div>
 	</div>
   </div>
 </template>
 
 <script>
-import {completeProcess} from "student/api/completeSendData.js"
+// import Popup from 'student/component/common/popup-aqzscs.vue'
+import {completeProcess} from 'student/api/completeSendData.js'
 import {getAqzscsData,sendAqzscsData} from 'student/api/aqzscs.js'
+// setHjStu({pauId: this.$store.getters.getHjid})
 //import {sendAqzscsData} from 'student/api/aqzscs.js'
 var obj = {} //空对象用来装答错的页码
 var optionsArr = ['A','B','C','D','E','F','G','H','I','J','K'] //对应给出的正确答案选项
 export default {
   name: 'aqzscs',
+  components:{Popup},
   data(){
   	return {
   		//通过数组索引控制页面内容切换
@@ -75,12 +80,23 @@ export default {
   		//错题数
   		countFalse:0,
   		//后台真实数据
-  		info:'',
+  		info:[],
   		//判定是否做过
   		jg:'',
+  		//第一题页面添加一个遮罩层，点击确定后遮罩消失可以开始答题
+  		popupShow:false,
+  		// //每个题目前面的序号A,B,C,D
+  		// order:['A','B','C','D','E','F','G','H','I','J','K']
   	}
   },
   methods:{
+  	closePopup(){
+  		this.popupShow = false
+  	},
+  	// toHome(){
+  	// 	completeProcess({pauId: this.$store.getters.getHjid})
+  	// 	this.$router.go(-1)
+  	// },
   	compare(item,index){
   		var pageObj = this.info[this.num] //该页面内的整个数据对象
   		var key = pageObj.options[optionsArr.indexOf(pageObj.key.toUpperCase())] //key为正确选项的那个对象
@@ -126,7 +142,7 @@ export default {
   			            clearInterval(time)
   			            this.second = 3
   			        }
-  			      },1000)  
+  			    },1000)  
   		}	
   	},
   	replay(){
@@ -164,6 +180,10 @@ export default {
   },
   created(){
   	this.getData()
+  	console.log(this.num);
+  	if(this.num==0){
+  		this.popupShow = true
+  	}
   }
 }
 </script>
@@ -176,6 +196,7 @@ export default {
 		top:0
 		bottom:0
 		border-top:.01rem solid #e9e9e9
+		overflow:auto
 		.contents
 			padding:0 .12rem .16rem
 			background:#f7f7f7
@@ -187,9 +208,10 @@ export default {
 				padding:.13rem 0 .1rem
 			ul
 				li
-					height:.48rem
+					// height:.48rem
 					font-size:.17rem
 					display:flex
+					margin:.1rem
 					.option-ico
 						position:relative
 						margin:0 .15rem 0 .2rem	
@@ -230,6 +252,7 @@ export default {
 				color:#333333
 				font-size:.17rem
 				font-family:PingFang SC
+				padding-bottom:1rem
 				.key
 					height:.56rem
 					line-height:.56rem

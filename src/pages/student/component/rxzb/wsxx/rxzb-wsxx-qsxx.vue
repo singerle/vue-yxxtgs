@@ -2,7 +2,8 @@
 <template>
 	<div class="bgcolor">
 		<div class="title">家庭成员信息</div>
-		<qsxxb v-for="item,index in num" :key="item.sfzhm+index" :getSavedData="item" :value="djyz" @childData="getBack" @delChild="delChild"></qsxxb>
+		<!-- <qsxxb v-if="item" v-for="item,index in num" :key="item.sfzhm+index" :getSavedData="item" :value="djyz" @childData="getBack" @delChild="delChild"></qsxxb> -->
+		<qsxxb v-if="item" v-for="item,index in num" :key="item.sfzhm" :getSavedData="item" :value="djyz" @childData="getBack" @delChild="delChild"></qsxxb>
 		<p class="add">
 			<span @click="add">添加其他成员信息</span>
 		</p>
@@ -24,7 +25,7 @@
 		data(){
 			return {
 				//控制添加信息组件
-				num:[{id:1}],
+				num:[],
 				//点击下一步，向下传值控制子组件将所有信息传上来
 				djyz:false,
 				//控制提示消息框的弹出
@@ -33,6 +34,20 @@
 				container:[],
 				//保存所有子组件的数据
 				save:[]
+			}
+		},
+		watch:{
+			$route( to , from ){
+				if(from.path == '/wsxxQsxx' && to.path== '/wsxxCdxx'){
+					// this.$store.state.table = true
+					// this.cd_boxs()
+				}
+		       // console.log( to , from )
+		        // to , from 分别表示从哪跳转到哪，都是一个对象
+		        // to.path  ( 表示的是要跳转到的路由的地址 eg: /home );
+		     // }
+			// '$route'(){
+			// 	alert(0)
 			}
 		},
 		methods:{
@@ -49,7 +64,11 @@
 			},
 			//删除当前子组件信息页
 			delChild(obj){
+				// console.log(this.num)
+				// console.log(obj)
 				this.num = this.num.filter(item => item!=obj)
+				console.log(this.num)
+
 				//let arr = this.num.filter(item => item==obj)
 				// this.num = []
 				// this.$nextTick(() => {
@@ -91,7 +110,28 @@
 
 				}
 			},
-			
+			cd_boxs(){
+				var data = this.$store.state.getWsxxData
+				
+				if(data.qsxx.length==0){
+					//根据数组的数据动态创建出表单信息，将数据交到子组件进行展示
+					// console.log(data.qsxx)
+					// console.log("a");
+					this.num = [{"cyxm":"","cygx":"","lxdh":"","cynl":"","gzhxxdw":"","nsr":"","gzhxxdwdz":"","jkzk":"","dwyb":"","sfzhm":"","zy":"","id":2}]
+					// console.log(this.num)
+				}else{
+					// this.$nextTick(() => {
+						console.log(data.qsxx)
+						// this.num.set(this.num,this.num.qsxx,data.qsxx)
+						this.num = data.qsxx
+						// console.log(data.qsxx)
+						// console.log(this.num)
+						// this.$set(this.num,data.qsxx);
+					// })
+					
+					// console.log("bb"); 
+				}
+			}
 		},
 		// updated(){
 		// 	console.log("updated");
@@ -102,7 +142,8 @@
 
 		// },
 		created(){
-			// console.log("created");
+			console.log("created",this.$store.state.getWsxxData);
+			this.cd_boxs()
 		},
 		// beforeMount(){
 		// 	console.log("beforeMount");
@@ -111,23 +152,11 @@
 		// 	console.log("mounted");
 		// },
 		activated(){
+			console.log("activated",this.$store.state.getWsxxData);
 			//有数据就显示出来
-			var data = this.$store.state.getWsxxData
-			// console.log(data.qsxx)
-			// console.log('test');
-			if(data.qsxx.length==0){
-				//根据数组的数据动态创建出表单信息，将数据交到子组件进行展示
-				// console.log(data.qsxx)
-				// console.log("a");
-				this.num = [{"cyxm":"","cygx":"","lxdh":"","cynl":"","gzhxxdw":"","nsr":"","gzhxxdwdz":"","jkzk":"","dwyb":"","sfzhm":"","zy":"","id":2}]
-				// console.log(this.num)
-			}else{
-				console.log(data.qsxx);
-				this.$nextTick(() => {
-				this.num = data.qsxx
-				})
-				// console.log(JSON.parse(JSON.stringify(this.num)))
-				// console.log("bb"); 
+			if(this.$store.state.table2){
+				this.cd_boxs()
+				this.$store.commit("changeTable2",false)
 			}
 		},
 	}
@@ -149,7 +178,7 @@
 			text-indent:0.12rem
 			color:#333
 		.nextpage
-			padding:0 0.12rem 2rem
+			margin:0 0.12rem 2rem
 			margin-top:0.2rem
 		.add
 			display:flex

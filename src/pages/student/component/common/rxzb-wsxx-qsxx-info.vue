@@ -296,7 +296,27 @@
 			},
 			del(){
 				this.$emit("delChild",this.getSavedData)
-			}
+			},
+			cd_boxs(){
+				console.log(this.getSavedData.id);
+				console.log(this.getSavedData);
+				var data = this.getSavedData
+				// this.$nextTick(() => {
+					this.cyxm = data.cyxm?data.cyxm:''
+					this.obj.cygx = data.cygx?data.cygx:'请选择'
+					this.lxdh = data.lxdh?data.lxdh:''
+					this.cynl = data.cynl?data.cynl:''
+					this.gzhxxdw = data.gzhxxdw?data.gzhxxdw:''
+					this.gzhxxdwdz = data.gzhxxdwdz?data.gzhxxdwdz:''
+					this.obj.nsr = data.nsr?data.nsr:'请选择'
+					this.obj.jkzk = data.jkzk?data.jkzk:'请选择'
+					this.zy = data.zy?data.zy:''
+					this.sfzhm = data.sfzhm?data.sfzhm:''
+					this.dwyb = data.dwyb?data.dwyb:''
+					var savewsxxPage2 = `{"cyxm":"${this.cyxm}","cygx":"${this.obj.cygx}","lxdh":"${this.lxdh}","cynl":"${this.cynl}","gzhxxdw":"${this.gzhxxdw}","nsr":"${this.obj.nsr}","gzhxxdwdz":"${this.gzhxxdwdz}","jkzk":"${this.obj.jkzk}","dwyb":"${this.dwyb}","sfzhm":"${this.sfzhm}","zy":"${this.zy}"},`
+				// console.log(savewsxxPage2);
+				// })
+			},
 		},
 		props:{
 			//监听value变化进行操作
@@ -305,6 +325,25 @@
 			getSavedData:Object
 		},
 		watch:{
+			getSavedData(val){
+				console.log(val)
+				var data = val
+				// this.$nextTick(() => {
+					this.cyxm = data.cyxm?data.cyxm:''
+					this.obj.cygx = data.cygx?data.cygx:'请选择'
+					this.lxdh = data.lxdh?data.lxdh:''
+					this.cynl = data.cynl?data.cynl:''
+					this.gzhxxdw = data.gzhxxdw?data.gzhxxdw:''
+					this.gzhxxdwdz = data.gzhxxdwdz?data.gzhxxdwdz:''
+					this.obj.nsr = data.nsr?data.nsr:'请选择'
+					this.obj.jkzk = data.jkzk?data.jkzk:'请选择'
+					this.zy = data.zy?data.zy:''
+					this.sfzhm = data.sfzhm?data.sfzhm:''
+					this.dwyb = data.dwyb?data.dwyb:''
+					var savewsxxPage2 = `{"cyxm":"${this.cyxm}","cygx":"${this.obj.cygx}","lxdh":"${this.lxdh}","cynl":"${this.cynl}","gzhxxdw":"${this.gzhxxdw}","nsr":"${this.obj.nsr}","gzhxxdwdz":"${this.gzhxxdwdz}","jkzk":"${this.obj.jkzk}","dwyb":"${this.dwyb}","sfzhm":"${this.sfzhm}","zy":"${this.zy}"},`
+				// console.log(savewsxxPage2);
+				// })
+			},
 			value(){//只要监听父组件点击下一页改变传递的值，这个时候验证填的信息是否可以提交。不为空就提交到store中，并给父组件传递信息，以确定是否跳转下一页
 				//手机号码验证
 				var phoneNumberReg = /^[1][3,4,5,7,8,9][0-9]{9}$/
@@ -386,25 +425,11 @@
 			}
 		},
 		created(){
-			console.log('created',this.getSavedData);
-			var data = this.getSavedData
-			// this.$nextTick(() => {
-				this.cyxm = data.cyxm?data.cyxm:''
-				this.obj.cygx = data.cygx?data.cygx:'请选择'
-				this.lxdh = data.lxdh?data.lxdh:''
-				this.cynl = data.cynl?data.cynl:''
-				this.gzhxxdw = data.gzhxxdw?data.gzhxxdw:''
-				this.gzhxxdwdz = data.gzhxxdwdz?data.gzhxxdwdz:''
-				this.obj.nsr = data.nsr?data.nsr:'请选择'
-				this.obj.jkzk = data.jkzk?data.jkzk:'请选择'
-				this.zy = data.zy?data.zy:''
-				this.sfzhm = data.sfzhm?data.sfzhm:''
-				this.dwyb = data.dwyb?data.dwyb:''
-				var savewsxxPage2 = `{"cyxm":"${this.cyxm}","cygx":"${this.obj.cygx}","lxdh":"${this.lxdh}","cynl":"${this.cynl}","gzhxxdw":"${this.gzhxxdw}","nsr":"${this.obj.nsr}","gzhxxdwdz":"${this.gzhxxdwdz}","jkzk":"${this.obj.jkzk}","dwyb":"${this.dwyb}","sfzhm":"${this.sfzhm}","zy":"${this.zy}"},`
-			// console.log(savewsxxPage2);
-			// })
+			this.cd_boxs()
 		},
-	// 	activated(){
+		activated(){
+			// console.log(1,this.getSavedData)
+			// this.cd_boxs()
 	// 		console.log('activated',this.getSavedData);
 	// 		// if(this.pd_true){
 	// 			//this.$nextTick(() => {
@@ -426,7 +451,7 @@
 	// 				// console.log(savewsxxPage2);
 	// 			//})
 	// 		// }
-	// 	},
+		},
 	}
 </script>
 

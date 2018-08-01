@@ -51,7 +51,7 @@
       <div class="noNr">
         <img src="static/img/error.png">
         <p>你的账号暂无操作权限</p>
-        <!-- <div class="noNr-btn" @click="$router.go(-1)">返回</div> -->
+        <!-- <div class="noNr-btn" @click="$router.(-1)">返回</div> -->
       </div>
     </div>
   </div>
@@ -96,6 +96,8 @@ export default {
     toPage(path) {
       // 调用二维码
       jsAndroid.barcode.scanBtn().then(res => {
+        // alert(res)
+        console.log(res)
         if(res && res !== '') {
           // 扫描成功
           this.setUserid(res)
@@ -104,10 +106,10 @@ export default {
           this.setSearch('')
           this.$router.push({path: `/${path}`})
         } else {
-          // 扫描失败
-          // this.setUserid('')
-          // this.setSearch(path)
-          // this.$router.push({path: `/search`})
+          //扫描失败
+          this.setUserid('')
+          this.setSearch(path)
+          this.$router.push({path: `/search`})
         }
       })
       // this.setUserid('')

@@ -23,11 +23,9 @@
 		<img src="static/student-index-pictures/rxzb-aqzscs-complete.png">
 		<p>恭喜您&nbsp;完成&nbsp;问卷调研&nbsp;&nbsp;</p>
 		</p>
-		<router-link to="/index">
-		  	<div class="return">
-		  		<span>返回首页</span>
-		  	</div>
-		</router-link>
+	  	<div class="return" @click = "$router.go(-1)">
+	  		<span>返回首页</span>
+	  	</div>
 	</div>
   </div>
 </template>
@@ -77,7 +75,6 @@ export default {
   			this.saveSelect += `{"id":"${this.num+1}","result":"${item.value}"},`
   			if(this.info[this.num+1] == undefined){
   				//选择正确的条件下，判断是否是最后一题了，如果是最后一题了，直接跳转到完成页面
-  				this.completeShow = true
   				//并且调用接口，保存对错题数，防止下次刷新重做
   				let updateData = '[' + this.saveSelect.substring(0,this.saveSelect.length-1) +']'
   				console.log(updateData);
@@ -85,6 +82,7 @@ export default {
   					if(res.code==='40001'){
   						console.log(res.message)
   						completeProcess({pauId: this.$store.getters.getHjid})
+  						this.completeShow = true
   					}else{
   						console.log('上传错误 error')
   					}
@@ -127,6 +125,7 @@ export default {
 		top:0
 		bottom:0
 		border-top:.01rem solid #e9e9e9
+		overflow:auto
 		.contents
 			padding:0 .12rem .16rem
 			background:#f7f7f7
@@ -181,6 +180,7 @@ export default {
 				color:#333333
 				font-size:.17rem
 				font-family:PingFang SC
+				padding-bottom:1rem
 				.key
 					height:.56rem
 					line-height:.56rem

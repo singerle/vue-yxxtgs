@@ -73,7 +73,7 @@
 				//在所有子组件的返回结果到达后再进行判定跳转传值问题
 				console.log(this.container.length==this.num.length);
 				console.log(this.container.length,this.num.length);
-				if(this.container.length==this.num.length){
+				// if(this.container.length==this.num.length){
 					//要全为true，去重后只有一个元素且为true
 					if([...new Set(this.container)][0]==true&&[...new Set(this.container)].length==1){//返回true跳转，否则继续提示完善信息
 						var savewsxxPage3 = ""
@@ -96,7 +96,7 @@
 						formData.append('param',encodeURI(value))
 						// formData.append('param',"aadfsdf")
 						//formData.param = encodeURI(value)
-						console.log(formData.param);
+						// console.log(formData.param);
 						sendWsxxData(formData).then((res) => {
 							console.log(res);
 							if(res.code === '40001'){
@@ -104,11 +104,11 @@
 								// completeProcess({"processId":"1"}).then((res) => {
 								// })
 								console.log(this.$store.getters.getHjid);
-								setHjStu({pauId: this.$store.getters.getHjid})
 								console.log("成功")
 								var timer = null
 								this.errorMessage = "保存成功"
 								this.FisShow = true
+								setHjStu({pauId: this.$store.getters.getHjid}).then((res) => {console.log(res.message);})
 								timer = setTimeout(()=>{
 									//弹出成功消息
 									console.log('成功');
@@ -117,7 +117,7 @@
 								var timer1 = null
 								timer1 = setTimeout(()=>{
 									//成功上传，2秒后跳转到首页
-									this.$router.push("/index")
+									this.$router.go(-3)
 								},2000)
 								this.container = []
 								this.save = []
@@ -137,13 +137,36 @@
 						this.container = []
 						this.save = []
 					}
-				}
+				// }
 			},
 
 		},
 		activated(){
-			//有数据就显示出来
-			console.log((new Date()).getTime());
+		// 	//有数据就显示出来
+		// 	console.log((new Date()).getTime());
+		// 	var data = this.$store.state.getWsxxData
+		// 	console.log(data);
+		// 	if(data.cdxx.length){//数组长度不为0时通过数据加载表单
+		// 		//根据数组的数据动态创建出表单信息，将数据交到子组件进行展示
+		// 		this.num = data.cdxx
+		// 	}else{
+		// 		this.num = [{"xmpy":"","cym":"","sg":"","tz":"","tc":"","jkzk":"","hkxz":"","xx":"","hyzk":"","zjxy":"","drbgb":"","jtjg":"","ccqj":"","sfpkx":""}]
+		// 	}
+			if(this.$store.state.table3){
+				
+				var data = this.$store.state.getWsxxData
+				console.log(data);
+				if(data.cdxx.length){//数组长度不为0时通过数据加载表单
+					//根据数组的数据动态创建出表单信息，将数据交到子组件进行展示
+					this.num = data.cdxx
+				}else{
+					this.num = [{"xmpy":"","cym":"","sg":"","tz":"","tc":"","jkzk":"","hkxz":"","xx":"","hyzk":"","zjxy":"","drbgb":"","jtjg":"","ccqj":"","sfpkx":""}]
+				}
+				this.$store.commit("changeTable3",false)
+			}
+		},
+		created(){
+		  	console.log((new Date()).getTime());
 			var data = this.$store.state.getWsxxData
 			console.log(data);
 			if(data.cdxx.length){//数组长度不为0时通过数据加载表单
@@ -153,7 +176,6 @@
 				this.num = [{"xmpy":"","cym":"","sg":"","tz":"","tc":"","jkzk":"","hkxz":"","xx":"","hyzk":"","zjxy":"","drbgb":"","jtjg":"","ccqj":"","sfpkx":""}]
 			}
 		},
-
 		mounted(){
 			console.log(this.$store.state.wsxxPage1)
 			console.log(this.$store.state.wsxxPage2)
@@ -216,7 +238,7 @@
 						width:auto
 						height:auto
 		.nextpage
-			padding:0 0.12rem 1rem
+			margin:0 0.12rem 1rem
 			margin-top:0.2rem
 		.success
 			position:fixed

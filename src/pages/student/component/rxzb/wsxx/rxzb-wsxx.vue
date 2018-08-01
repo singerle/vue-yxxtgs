@@ -290,7 +290,21 @@ import {getWsxxcxData} from 'student/api/wsxx.js'
 		  //       formatTime:'',
 		    }
 		},
-		// watch:{
+		watch:{
+			$route( to , from ){
+				if(from.path == '/index' && to.path== '/rxzb/wsxx'){
+					this.$store.commit("changeTable1",true)
+					this.$store.commit("changeTable2",true)
+					this.$store.commit("changeTable3",true)
+					this.getData()
+				}
+		       // console.log( to , from )
+		        // to , from 分别表示从哪跳转到哪，都是一个对象
+		        // to.path  ( 表示的是要跳转到的路由的地址 eg: /home );
+		     // }
+			// '$route'(){
+			// 	alert(0)
+			}
 		// 	pickerValue(val){
 		// 		val.substring(0,4)
 		// 		var n = val.split('年');
@@ -304,7 +318,7 @@ import {getWsxxcxData} from 'student/api/wsxx.js'
 		// 		}
 		// 		this.formatTime = n[0] + y[0] + r[0]
 		// 	}
-		// },
+		},
 		methods:{
 			closepopu(popu) {
 				this[popu] = false
@@ -555,6 +569,16 @@ import {getWsxxcxData} from 'student/api/wsxx.js'
 								
 							}
 						}
+						this.csd = savedData1.csd?savedData1.csd:''
+						this.obj.hkszd = savedData1.hkszd?savedData1.hkszd:'请选择'
+						this.lxdh = savedData1.lxdh?savedData1.lxdh:''
+						this.dzyj = savedData1.dzyj?savedData1.dzyj:''
+						this.qq = savedData1.qq?savedData1.qq:''
+						this.jtdh = savedData1.jtdh?savedData1.jtdh:''
+						this.jtyb = savedData1.jtyb?savedData1.jtyb:''
+						this.jtdz = savedData1.jtdz?savedData1.jtdz:''
+						this.xzzyb = savedData1.xzzyb?savedData1.xzzyb:''
+						this.xzz = savedData1.xzz?savedData1.xzz:''
 						
 
 						//第二页数据处理
@@ -595,6 +619,7 @@ import {getWsxxcxData} from 'student/api/wsxx.js'
 							}
 						}
 						//将所有获取的数据处理好后存到store中，后面两个页面直接获取展示，无需处理
+						console.log(goodData)
 						this.$store.commit("saveWsxxDate",goodData)
 						console.log(this.$store.state.getWsxxData);
 					}
@@ -602,9 +627,28 @@ import {getWsxxcxData} from 'student/api/wsxx.js'
 				})
 			}
 		},
-		activated(){
+		// activated(){
+			
+		// },
+		// beforeRouteLeave(to,from,next){alert()
+			
+		// 	if(to.path=="/rxzb/wsxx" && from.path =="/wsxxQsxx"){
+		// 		this.getData()
+
+		// 	}
+		// 	// this.getData()
+		// 	next()
+		// },
+		// beforeEach(to,from,next){alert(11)
+		// 	next()
+		// },
+		// afterEach(){
+		// 	alert()
+		// },
+		created(){
 			this.getData()
-		},
+		}
+
 	}
 </script>
 
@@ -707,7 +751,7 @@ import {getWsxxcxData} from 'student/api/wsxx.js'
 			// 	p:last-child
 			// 		border-bottom:0
 		.nextpage
-			padding:0 0.12rem
+			margin:0 0.12rem
 			margin-top:0.2rem
 		.error
 			position:fixed

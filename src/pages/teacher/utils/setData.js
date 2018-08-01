@@ -10,6 +10,7 @@ export class User {
 }
 export class UserInfo {
   constructor({enrollcode, studentcode, idcode, birthday, graduateschool, house, room, bed}) {
+    this.examineecode = examineecode
     this.enrollcode = enrollcode
     this.studentcode = studentcode
     this.idcode = idcode

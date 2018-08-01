@@ -381,6 +381,41 @@ var jg = ["北京市","天津市","河北省","山西省","内蒙古自治区","
 			getSavedData:Object,
 		},
 		watch:{
+			getSavedData(val){
+				console.log("created");
+				console.log(this.getSavedData.id==1);
+				if(val.id!=1){
+					var data = val
+					//封装一个函数Formattime将13位的时间戳转化为如“2018年6月28日”这样的字符串格式
+					function Formattime(num){
+						//时间戳转化为Date对象
+						var date = new Date(num)
+						return date.getFullYear()+"年"+(date.getMonth()+1)+"月"+date.getDate()+'日'
+					}
+					//将已有的数据展示出来
+					// if(data.kssj == "请选择"||data.kssj == undefined){
+					// 	this.startValue = "请选择"
+					// }else this.startValue = Formattime(data.kssj)
+					// if(data.jssj == "请选择" || data.jssj == undefined){
+					// 	this.overValue = "请选择"
+					// }else this.overValue = Formattime(data.jssj)
+					//console.log(this.startValue)
+					this.cym = data.cym?data.cym:''
+					this.xmpy = data.xmpy?data.xmpy:''
+					this.sg = data.sg?data.sg:''
+					this.tz = data.tz?data.tz:''
+					this.tc = data.tc?data.tc:''
+					this.obj.jkzk = data.jkzk?data.jkzk:'请选择'
+					this.obj.hkxz = data.hkxz?data.hkxz:'请选择'
+					this.obj.xx = data.xx?data.xx:'请选择'
+					this.obj.hyzk = data.hyzk?data.hyzk:'请选择'
+					this.obj.zjxy = data.zjxy?data.zjxy:'请选择'
+					this.drbgb = data.drbgb?data.drbgb:''
+					this.obj.jtjg = data.jtjg?data.jtjg:'请选择'
+					this.obj.ccqj = data.ccqj?data.ccqj:'请选择'
+					this.obj.sfpkx = data.sfpkx?data.sfpkx:'请选择'
+				}
+			},
 			value(){
 				var flag = "请选择"
 				console.log("bb")
@@ -512,9 +547,6 @@ var jg = ["北京市","天津市","河北省","山西省","内蒙古自治区","
 			// }
 		},
 		created(){
-			console.log("created");
-			console.log(this.getSavedData.id==1);
-			if(this.getSavedData.id!=1){
 				var data = this.getSavedData
 				//封装一个函数Formattime将13位的时间戳转化为如“2018年6月28日”这样的字符串格式
 				function Formattime(num){
@@ -544,12 +576,9 @@ var jg = ["北京市","天津市","河北省","山西省","内蒙古自治区","
 				this.obj.jtjg = data.jtjg?data.jtjg:'请选择'
 				this.obj.ccqj = data.ccqj?data.ccqj:'请选择'
 				this.obj.sfpkx = data.sfpkx?data.sfpkx:'请选择'
-			}
 		},
 		activated(){
-			console.log("activated");
-			console.log(this.getSavedData.id==1);
-			if(this.getSavedData.id!=1){
+			if(false){
 				var data = this.getSavedData
 				//封装一个函数Formattime将13位的时间戳转化为如“2018年6月28日”这样的字符串格式
 				function Formattime(num){
@@ -579,6 +608,7 @@ var jg = ["北京市","天津市","河北省","山西省","内蒙古自治区","
 				this.obj.jtjg = data.jtjg?data.jtjg:'请选择'
 				this.obj.ccqj = data.ccqj?data.ccqj:'请选择'
 				this.obj.sfpkx = data.sfpkx?data.sfpkx:'请选择'
+				this.$store.commit("changeTable",false)
 			}
 		}	
 	}
