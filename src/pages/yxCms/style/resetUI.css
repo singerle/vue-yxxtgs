@@ -1,0 +1,38 @@
+.el-menu{
+    border: none
+}
+.el-main{
+    padding: 20px 0 0 0
+}
+.el-icon-arrow-up{
+    line-height: 30px
+}
+.has-gutter tr th{
+    background: #F1F3F7;
+    font-weight: bold
+}
+.vue-header {
+    padding-bottom: 15px;
+    border-bottom: 1px solid #2184C5
+}
+.vue-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #555;
+    line-height: 45px
+}
+.vue-title:after {
+    content: '';
+    display: inline-block;
+    height: 12px;
+    border: 2px #A7A7A7 solid;
+    margin-left: 12px;
+    position: relative;
+    top: 2px
+}
+.only-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #555;
+    line-height: 45px 
+}
