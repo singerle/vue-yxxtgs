@@ -1,10 +1,11 @@
 .DS_Store
 node_modules/
+yxxt/
 dist/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-
+yxxt.rar
 # Editor directories and files
 .idea
 *.suo
