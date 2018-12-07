@@ -28,14 +28,15 @@ export function delTeacher(groupId) {
   })
 }
 // 迎新配置  教师办公配置 修改权限组
-export function editTeacher(groupId, newName) {
+export function editTeacher(groupId, newName, processId) {
   let data = {
     groupId,
-    newName
+    newName,
+    processId
   }
   data = qs.stringify(data)
   return fetch({
-    url: `${$HTTP}/enroll/roleManage/delete`,
+    url: `${$HTTP}/enroll/permission/updateGroup`,
     // url: 'https://dsn.apizza.net/mock/a36657f269d8bc38b9979c1bbf019699/manage/list',
     method: 'post',
     data

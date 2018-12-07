@@ -2,21 +2,21 @@
   <div class="synSelect">
     <!-- 第一行 -->
     <el-row type="flex">
-      <el-col :span="3" class="yxxt-col">
+      <el-col :span="4" class="yxxt-col">
         <label>所在年度 </label>
         <el-select v-model="option.year" placeholder="请选择" class="yxxt-select" size="mini" @change="changeYear()">
           <el-option v-for="item in options.year" :key="item" :label="item" :value="item" class="yxxt-option">
           </el-option>
         </el-select>
       </el-col>
-      <el-col :span="3" class="yxxt-col">
+      <el-col :span="4" class="yxxt-col">
         <label>迎新统计 </label>
         <el-select v-model="option.title" placeholder="请选择" class="yxxt-select" size="mini" @change="changSys()">
           <el-option v-for="item in options.title" :key="item.id" :label="item.name" :value="item.id" class="yxxt-option">
           </el-option>
         </el-select>
       </el-col>
-      <el-col :span="3" class="yxxt-col">
+      <el-col :span="4" class="yxxt-col">
         <label>迎新环节 </label>
         <el-select v-model="option.type" placeholder="请选择" class="yxxt-select" size="mini">
           <el-option v-for="item in options.type" :key="item.id" :label="item.name" :value="item.id" class="yxxt-option">
@@ -25,28 +25,28 @@
       </el-col>
     </el-row>
     <el-row type="flex">
-      <el-col :span="3" class="yxxt-col">
+      <el-col :span="4" class="yxxt-col">
         <label>所在院校 </label>
         <el-select v-model="option.school" placeholder="请选择" class="yxxt-select" size="mini" @change="changeSchool">
           <el-option v-for="item in options.school" :key="item.id" :label="item.name" :value="item.id" class="yxxt-option">
           </el-option>
         </el-select>
       </el-col>
-      <el-col :span="3" class="yxxt-col">
+      <el-col :span="4" class="yxxt-col">
         <label>所在专业 </label>
         <el-select v-model="option.majon" placeholder="请选择" class="yxxt-select" size="mini" @change="changeMajon">
           <el-option v-for="item in options.majon" :key="item.id" :label="item.name" :value="item.id" class="yxxt-option">
           </el-option>
         </el-select>
       </el-col>
-      <el-col :span="3" class="yxxt-col">
+      <el-col :span="4" class="yxxt-col">
         <label>所在班级 </label>
         <el-select v-model="option.classes" placeholder="请选择" class="yxxt-select" size="mini">
           <el-option v-for="item in options.class" :key="item.id" :label="item.name" :value="item.id" class="yxxt-option">
           </el-option>
         </el-select>
       </el-col>
-      <el-col :span="3" class="yxxt-col">
+      <el-col :span="4" class="yxxt-col">
         <label>生源类型 </label>
         <el-select v-model="option.soucre" placeholder="请选择" class="yxxt-select" size="mini">
           <el-option v-for="item in options.soucre" :key="item" :label="item" :value="item" class="yxxt-option">
@@ -55,14 +55,14 @@
       </el-col>
     </el-row>
     <el-row type="flex">
-      <el-col :span="3" class="yxxt-col">
+      <el-col :span="4" class="yxxt-col">
         <label>状态 </label>
         <el-select v-model="option.state" placeholder="请选择" class="yxxt-select" size="mini">
           <el-option v-for="item in options.state" :key="item.id" :label="item.name" :value="item.id" class="yxxt-option">
           </el-option>
         </el-select>
       </el-col>
-      <el-col :span="2" class="yxxt-col">
+      <el-col :span="4" class="yxxt-col">
         <el-select v-model="option.search" placeholder="请选择" class="yxxt-select" size="mini">
           <el-option v-for="item in options.search" :key="item.id" :label="item.name" :value="item.id" class="yxxt-option">
           </el-option>
@@ -125,7 +125,7 @@
 
             // 如果从synthesis页面过来
             if(this.statis.id && this.statis.id !== '') {
-              this.option = Object.assign(this.option, new Statis(this.statis))
+              this.option = Object.assign(this.option, new Statis(this.statis), {state: this.options.state[1].id})
               // 去获取迎新系统
               this.changeYear(true)
               this.changSys(true)
@@ -151,7 +151,7 @@
           res = res.data
           if (res.state === OK_CODE) {
             this.options.majon = res.data.majon // 重置专业
-            this.options.classes = res.data.class // 重置班级
+            this.options.class = res.data.class // 重置班级
             this.option.majon = this.options.majon.length > 0 ? this.options.majon[0].id : ''
             this.option.classes = this.options.class.length > 0 ? this.options.class[0].id :''
           }
@@ -168,7 +168,7 @@
           loading.close()
           res = res.data
           if (res.state === OK_CODE) {
-            this.options.classes = res.data.class // 重置班级
+            this.options.class = res.data.class // 重置班级
             this.option.classes = this.options.class.length > 0 ? this.options.class[0].id :''
           }
         }).catch(_ => {
@@ -184,7 +184,7 @@
           res = res.data
           loading.close()
           if (res.state === OK_CODE) {
-            this.options.type = res.data.type
+            this.options.type = res.data.process
             if (!bole) {
               this.option.type = this.options.type.length > 0 ? this.options.type[0].id : ''
             }
@@ -192,7 +192,7 @@
               this.search()
             }
           }
-        }).catch(_ => {
+        }).catch((e) => {
           loading.close()
           this.MessageError()
         })

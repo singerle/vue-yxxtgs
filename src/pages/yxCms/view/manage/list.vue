@@ -38,7 +38,7 @@
           <template slot-scope="scope">
             <p class="item">
               <el-button type="text" size="small" @click="edit(scope.row)">权限组编辑</el-button>
-              <el-button type="text" size="small" @click="set(scope.row)">权限配置</el-button>
+              <el-button type="text" size="small" @click="set(scope.row)">权限设置</el-button>
               <el-button type="text" size="small" @click="del(scope.row.roleId)">权限删除</el-button>
               <el-button type="text" size="small" @click="range(scope.row)">权限范围</el-button>
               <el-button type="text" size="small" @click="member(scope.row)">成员管理</el-button>

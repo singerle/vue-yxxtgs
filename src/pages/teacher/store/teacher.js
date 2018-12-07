@@ -6,6 +6,7 @@ const teacher = {
     code: '',
     token: '',
     news: {}, // 设置新闻页
+    states: '', // 设置状态
     search: '' // 设置跳转到那个页面去
   },
   mutations: {
@@ -29,6 +30,9 @@ const teacher = {
     // 设置新闻页
     [types.SET_NEW](state, news) {
       state.news = news
+    },
+    [types.SET_STATE](state, states) {
+      state.states = states
     }
   }
 }

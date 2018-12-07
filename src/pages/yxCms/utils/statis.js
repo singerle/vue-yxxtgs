@@ -7,8 +7,8 @@ export default class Statis{
     this.classes = classes
     this.soucre = soucre
     this.type = id
-    this.state = ''
-    this.input = ''
-    this.search = ''
+    // this.state = ''
+    // this.input = ''
+    // this.search = ''
   }
 }

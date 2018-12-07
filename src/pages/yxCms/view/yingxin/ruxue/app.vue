@@ -70,6 +70,7 @@ export default {
     // },
     // 下拉框改变类型选值后
     change () {
+      console.log(111)
       // 进行判断，如果ruxueSiteState是1和2，则启用入学配置加载列表，否则加载现场配置的列表
       if (this.ruxueSiteState === 1) {
         // 这是入学配置和查看入学配置的
@@ -78,10 +79,11 @@ export default {
         // 这是入学配置和查看入学配置的
         this._fetchAllApp()
       } else if (this.ruxueSiteState === 3) {
+        this._fetchSiteApp()
         // 预留现场配置
       } else if (this.ruxueSiteState === 4) {
         // 预留查看现场配置
-
+        this._fetchSiteApp()
       }
     },
     // 点击新增应用

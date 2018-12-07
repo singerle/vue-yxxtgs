@@ -5,9 +5,9 @@
         <el-col>
           <span>成员管理</span>
           <el-breadcrumb class="crumbs" separator-class="el-icon-arrow-right">
-            <el-breadcrumb-item>{{teacherItem.processName}}</el-breadcrumb-item>
-            <el-breadcrumb-item>教师办公配置</el-breadcrumb-item>
-            <el-breadcrumb-item>{{teacher.groupName}}</el-breadcrumb-item>
+            <el-breadcrumb-item to="/yingxin/process">{{teacherItem.processName}}</el-breadcrumb-item>
+            <el-breadcrumb-item to="/yingxin/teacher">教师办公配置</el-breadcrumb-item>
+            <el-breadcrumb-item to="/yingxin/teacher">{{teacher.groupName}}</el-breadcrumb-item>
             <el-breadcrumb-item>成员管理</el-breadcrumb-item>
           </el-breadcrumb>
         </el-col>

@@ -5,7 +5,7 @@
 			<span>您已申请购买保险</span>
 		</p>
 		<ul>
-			<li v-for="(item,i) in data"><span>体检费</span><span>35元</span></li>
+			<li v-for="(item,i) in data"><span>{{item.fymc}}</span><span>{{item.yjfy}}元</span></li>
 <!-- 			<li><span>大学生居民医疗</span><span>35元</span></li>
 			<li><span>大学生医疗保险</span><span>40元/每年</span></li> -->
 		</ul>

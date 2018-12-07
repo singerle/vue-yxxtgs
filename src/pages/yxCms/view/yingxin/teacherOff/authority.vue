@@ -3,9 +3,9 @@
     <el-header class="header">
       <span class="title header-item h-left">权限范围</span>
       <el-breadcrumb class="crumbs" separator-class="el-icon-arrow-right">
-        <el-breadcrumb-item>迎新配置</el-breadcrumb-item>
-        <el-breadcrumb-item>教师办公设置</el-breadcrumb-item>
-        <el-breadcrumb-item>{{teacher.groupName}}</el-breadcrumb-item>
+        <el-breadcrumb-item to="/yingxin/process">迎新配置</el-breadcrumb-item>
+        <el-breadcrumb-item to="/yingxin/teacher">教师办公设置</el-breadcrumb-item>
+        <el-breadcrumb-item to="/yingxin/teacher">{{teacher.groupName}}</el-breadcrumb-item>
         <el-breadcrumb-item>权限范围</el-breadcrumb-item>
       </el-breadcrumb>
     </el-header>
@@ -75,7 +75,7 @@ export default {
     // 保存权限范围
     save() {
       let loading = this.loading()
-
+      console.log(this.data)
       savaRange(this.teacherItem.enrollLogicId, this.teacher.groupId, encodeURI(JSON.stringify(this.data))).then(res => {
         loading.close()
         res = res.data
@@ -207,7 +207,6 @@ export default {
           // 有子集
           item.checked = checked
         } else {
-          console.log(checked)
         // 没有子集
           if (checked.length === 1) {
             if (checked[0] === '1') {

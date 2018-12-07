@@ -82,7 +82,7 @@ export default {
         spinnerType: 'fading-circle'
       })
       this.isShow = false
-      fetchChannel(this.userid, this.type, this.code).then(res => {
+      fetchChannel(this.userid, this.type, this.code, this.states).then(res => {
         Indicator.close()
         res = res.data
         this.isShow = true
@@ -116,6 +116,9 @@ export default {
         if (res.state === SUCCES_OK) {
           this.prop('办理成功')
           this._fetchChannel()
+          setTimeout(() => {
+            this.$router.go(-1)
+          },4000)
         } else {
           this.prop(res.message)
         }
@@ -137,8 +140,9 @@ export default {
         res = res.data
         if (res.state === SUCCES_OK) {
           this._fetchChannel()
+        }else{
+          this.prop(res.message)
         }
-        this.prop(res.message)
       }).catch(_ => {
         this.prop('连接数据库失败')
       })
@@ -156,7 +160,7 @@ export default {
       return text[this.btnstate]
     },
     ...mapGetters([
-      'userid', 'code', 'type'
+      'userid', 'code', 'type', 'states'
     ])
   }
 }

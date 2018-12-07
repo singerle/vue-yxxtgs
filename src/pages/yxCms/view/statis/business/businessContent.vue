@@ -6,7 +6,7 @@
       <template slot-scope="scope">
         <p class="operate">
           <span class="btn" @click="look(scope.row)">查看</span>
-          <span class="btn">表单预览</span>
+          <!-- <span class="btn">表单预览</span> -->
         </p>
       </template>
     </el-table-column>
@@ -28,11 +28,19 @@
         default: function() {
           return []
         }
+         },
+      options: {
+        type: Object,
+        default: function() {
+          return {}
+        }
       }
     },
     methods: {
       look (item) {
-        this._setInfo(item)
+        // this._setInfo(item)
+        let info = Object.assign({}, this.options, item)
+        this._setInfo(info)
         this.$router.push({
           path: '/statis/index/businfo'
         })

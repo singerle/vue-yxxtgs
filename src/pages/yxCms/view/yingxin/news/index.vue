@@ -33,14 +33,15 @@ export default {
       return {
         page: '/newsPublicity/addedNews',
         headerTitle: {
-          title: '新闻公式',
+          title: '新闻公示',
           button: '新增',
           yxTitle: '新闻列表',
           yinxin:'迎新',
           titlename: '',
           isEdit: false,
           appItem: {},
-          checked: false
+          checked: false,
+          disabled: true
         },
         tableData: [],
         currentPage: 1,
@@ -100,7 +101,8 @@ export default {
             if(res.state === SUCCESS_OK){
             console.info(res.data)
             this.tableData = res.data.list
-            this.headerTitle.checked = res.data.show
+            this.headerTitle.checked = res.data.show // true 是勾选 flase是不勾选
+            this.headerTitle.disabled = res.data.disabled
             // console.log('tableDate'+this.tableData)
             this.headerTitle.appItem = res.data.enrollAndApplication
             this.headerTitle.yxTitle = this.headerTitle.appItem.enrollName
@@ -128,6 +130,7 @@ export default {
             console.info(res.data)
             this.tableData = res.data.list
             this.headerTitle.checked = res.data.show
+            this.headerTitle.disabled = res.data.disabled
             // console.log('tableDate'+this.tableData)
             this.headerTitle.appItem = res.data.enrollAndApplication
             this.headerTitle.yxTitle = this.headerTitle.appItem.enrollName

@@ -41,7 +41,7 @@
 		<p>恭喜您&nbsp;完成&nbsp;安全知识测试&nbsp;&nbsp;项目</p>
 		<p>共&nbsp;<span>{{info.length}}</span>&nbsp;题&nbsp;<span class="green">正确</span><span class="correctNum">{{info.length-countFalse}}</span>题&nbsp;<span class="red">错误</span><span class="errorNum">{{countFalse}}</span>题
 		</p>
-	  	<div class="return" @click="$router.go(-1)">
+	  	<div class="return" @click="toHome">
 	  		<span>返回首页</span>
 	  	</div>
 	</div>
@@ -58,7 +58,7 @@ var obj = {} //空对象用来装答错的页码
 var optionsArr = ['A','B','C','D','E','F','G','H','I','J','K'] //对应给出的正确答案选项
 export default {
   name: 'aqzscs',
-  components:{Popup},
+//   components:{Popup},
   data(){
   	return {
   		//通过数组索引控制页面内容切换
@@ -93,10 +93,10 @@ export default {
   	closePopup(){
   		this.popupShow = false
   	},
-  	// toHome(){
-  	// 	completeProcess({pauId: this.$store.getters.getHjid})
-  	// 	this.$router.go(-1)
-  	// },
+  	toHome(){
+		completeProcess({pauId: this.$store.getters.getHjid}).catch(completeProcess({pauId: this.$store.getters.getHjid}))
+  		this.$router.go(-1)
+  	},
   	compare(item,index){
   		var pageObj = this.info[this.num] //该页面内的整个数据对象
   		var key = pageObj.options[optionsArr.indexOf(pageObj.key.toUpperCase())] //key为正确选项的那个对象
@@ -109,12 +109,11 @@ export default {
   				sendAqzscsData({zq:this.info.length-this.countFalse,cw:this.countFalse,id:"1"}).then((res) => {
   					if(res.code==='40001'){
   						console.log(res.message)
-  						completeProcess({pauId: this.$store.getters.getHjid})
+  						completeProcess({pauId: this.$store.getters.getHjid}).catch(completeProcess({pauId: this.$store.getters.getHjid}))
   					}else{
   						console.log('上传错误 error')
   					}
   				})
-
   			}else{
 	  			setTimeout(()=>{//刷新数据延迟半秒跳到下一题
 	  				this.num++

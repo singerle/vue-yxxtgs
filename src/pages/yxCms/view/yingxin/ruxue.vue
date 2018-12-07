@@ -31,7 +31,7 @@ export default {
   data () {
     return {
       ruxueSiteState: '',
-      btnTab: '',
+      btnTab: '应用管理',
       title: '入学配置',
       breadcrumb: '2018年夏季迎新配置'
     }

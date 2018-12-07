@@ -26,7 +26,7 @@
 </template>
 <script>
   const PATH = ['/statis/index/synthesis', '/statis/index/business', '/statis/index/comb', '/statis/index/traffic']
-  import { mapGetters } from 'vuex'
+  import { mapGetters , mapMutations} from 'vuex'
   export default {
     data() {
       return {
@@ -45,7 +45,11 @@
         this.$router.push({
           path: PATH[key]
         })
-      }
+         this._setOptions({})
+      },
+      ...mapMutations({
+      '_setOptions': 'SET_STATIS_OPTIONS',
+    })
     },
     computed: {
       ...mapGetters([

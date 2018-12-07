@@ -6,9 +6,9 @@
           <el-col  :span="24">
             <span class="only-title">权限设置</span>
             <el-breadcrumb class="crumbs" separator-class="el-icon-arrow-right">
-              <el-breadcrumb-item>迎新配置</el-breadcrumb-item>
-              <el-breadcrumb-item>教师办公配置</el-breadcrumb-item>
-              <el-breadcrumb-item>{{teacher.groupName}}</el-breadcrumb-item>
+              <el-breadcrumb-item to="/yingxin/process">迎新配置</el-breadcrumb-item>
+              <el-breadcrumb-item to="/yingxin/teacher">教师办公配置</el-breadcrumb-item>
+              <el-breadcrumb-item to="/yingxin/teacher">{{teacher.groupName}}</el-breadcrumb-item>
               <el-breadcrumb-item>权限设置</el-breadcrumb-item>
             </el-breadcrumb>
           </el-col>

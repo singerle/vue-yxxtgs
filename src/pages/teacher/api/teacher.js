@@ -1,14 +1,16 @@
 import fetch from 'teacher/utils/fetch'
 import qs from 'qs'
-const $HTTP = window.REQUEST_URL
 // const $HTTP = window.REQUEST_URL
 // const $HTTP = 'http://www.yunhuakeji.com:10071'
+// export const $HTTP = 'http://192.168.199.71:8086'
+const $HTTP = window.REQUEST_URL
 // 获取现场报到数据
-export function fetchRegister(userId, type, code) {
+export function fetchRegister(userId, type, code, eaaRevoke) {
   let data = {
     userId,
     type,
-    code
+    code,
+    eaaRevoke
   }
   data = qs.stringify(data)
   return fetch({
@@ -19,10 +21,10 @@ export function fetchRegister(userId, type, code) {
   })
 }
 // 获取绿色通道数据
-export function fetchChannel(userId, type, code) {
+export function fetchChannel(userId, type, code, eaaRevoke) {
   let data = {
     userId,
-    type, code
+    type, code, eaaRevoke
   }
   data = qs.stringify(data)
   return fetch({
@@ -32,9 +34,9 @@ export function fetchChannel(userId, type, code) {
   })
 }
 // 获取寝室数据列表
-export function fetchDormitory(userId, type, code) {
+export function fetchDormitory(userId, type, code, eaaRevoke) {
   let data = {
-    userId, type, code
+    userId, type, code, eaaRevoke
   }
   data = qs.stringify(data)
   return fetch({
@@ -104,9 +106,9 @@ export function channelCancel(userId, desc) {
   })
 }
 // 获取保险购买办理数据
-export function fetchInsurance(userId, type, code) {
+export function fetchInsurance(userId, type, code, eaaRevoke) {
   let data = {
-    userId, type, code
+    userId, type, code, eaaRevoke
   }
   data = qs.stringify(data)
   return fetch({
@@ -153,9 +155,9 @@ export function cancel(userId, desc) {
 }
 
 // 获取财务数据
-export function finance (userId, type, code) {
+export function finance (userId, type, code, eaaRevoke) {
   let data = {
-    userId, type, code
+    userId, type, code, eaaRevoke
   }
   data = qs.stringify(data)
   return fetch({
@@ -196,5 +198,17 @@ export function fetchInfo(bulletinLogicId) {
     url: `${$HTTP}/bulletin/selectAndVolumeAdd`,
     method: 'post',
     data
+  })
+}
+// 缴费信息接口
+export function fetchJfxx(userid) {
+  let data = {
+    userid
+  }
+  data = qs.stringify(data)
+  return fetch({
+    url: `${$HTTP}/student/jfxx`,
+    method: 'post',
+    data 
   })
 }

@@ -4,7 +4,8 @@ import { MessageBox, Message } from 'element-ui'
 const instance = axios.create({
   baseURL: process.env.BASE_API,
   timeout: 10000,
-  responseType: 'arraybuffer'
+  // responseType: 'arraybuffer'
+  responseType: 'blob'
 })
 // 给axios添加header，在header中添加token
 // 添加一个请求拦截器

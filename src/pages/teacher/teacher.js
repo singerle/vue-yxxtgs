@@ -20,6 +20,12 @@ Vue.config.productionTip = false
 Object.keys(prop).forEach(key => {
   Vue.prototype[key] = prop[key]
 })
+//如果页面有弹窗。直接点击返回按钮时自动清除弹窗
+router.afterEach((to,from) => {
+  if(from.matched[0]&&from.matched[0].instances.default.$messagebox){
+    from.matched[0].instances.default.$messagebox.close()
+  }
+})
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

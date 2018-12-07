@@ -6,18 +6,18 @@
     <div class="control-wrap">
       <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm" enctype="multipart/form-data">
         <el-form-item label="应用名称" prop="titlename">
-          <el-input class="newstitleInput" v-model="ruleForm.titlename" style="width: 30%;"></el-input>
+          <el-input class="newstitleInput" v-model="ruleForm.titlename" style="width: 30%;" maxlength="12"></el-input>
           <span class="newstitleTip">中英文数字，限12个字符内</span>
         </el-form-item>
         <el-form-item label="新闻标题" prop="title">
-          <el-input class="newstitleInput" v-model="ruleForm.title"></el-input>
+          <el-input class="newstitleInput" v-model="ruleForm.title" maxlength="40"></el-input>
           <span class="newstitleTip">限40个字符内，支持中英文数字</span>
         </el-form-item>
         <el-form-item prop="content" style="width: 80%;">
           <quill-editor class="quill-editor" ref="myQuillEditor"
-            v-model="ruleForm.content" :options="editorOption" @change="onEditorChange($event)" @focus="onEditorFocus($event)"></quill-editor>
+            v-model="ruleForm.content" :options="editorOption"  @change="onEditorChange($event)" @focus="onEditorFocus($event)"></quill-editor>
           <!-- <div class="limit">当前已输入 <span>{{nowLengthNum}}</span> 个字符，您还可以输入 <span>{{SurplusLengthNum}}</span> 个字符。</div> -->
-          <div class="limit" style="border:none"></div>
+          <div class="limit" style="border:0"></div>
           <!-- 文件上传input 将它隐藏-->
           <el-upload class="upload-demo" :action="qnLocation" :before-upload='beforeUpload' :data="uploadData" :on-success='upScuccess'
             ref="upload" style="display:none">
@@ -41,6 +41,7 @@ import { quillEditor, Quill } from 'vue-quill-editor';
 import { fetchAddNews, modifylist, modifynews, updataUrl } from 'oa/api/statis/news'
 import { fetchAppInfo, editAPP, editSiteAPP, fetchSiteAppInfo } from 'oa/api/process/ruxue'
 import { mapGetters } from 'vuex'
+import { reg } from 'oa/utils/dom'
 const SUCCESS_OK = '200'
   export default {
     components: {
@@ -55,6 +56,18 @@ const SUCCESS_OK = '200'
           callback();
         }
       }
+      // 校验中英文数字
+      // let character = (rule, value, callback) => {
+      //   console.info(reg)
+      //   if(value === '') {
+      //     return callback (new Error('新闻封面不能为空'))
+      //   } else {
+      //     if (value != '') {
+      //       this.reg
+      //     }
+      //     callback();
+      //   }
+      // }
       return {
         title: '新增',
         yxTitle: '单页配置',
@@ -79,11 +92,13 @@ const SUCCESS_OK = '200'
         rules: {
           title: [
             { required: true, message: '新闻标题不能为空', trigger: 'blur' },
+            { pattern: reg, message: '仅限中英文数字输入' },
             { max: 40, message: '限40个字符内', trigger: 'blur' }
           ],
           titlename: [
             { required: true, message: '应用名称不能为空', trigger: 'blur' },
-            { max: 40, message: '限12个字符内', trigger: 'blur' }
+            { pattern: reg, message: '仅限中英文数字输入' },
+            { max: 12, message: '限12个字符内', trigger: 'blur' }
           ],
           cropImg: [
             {required: true, validator: checkImg, trigger: 'blur'}
@@ -98,7 +113,10 @@ const SUCCESS_OK = '200'
         imgSrc: '',
         qnLocation: updataUrl,
         dialogVisible: false,
-        editorOption: {},
+        editorOption: {
+          placeholder: '这里是正文内容...',
+          maxlength: '20'
+        }, 
         imageList: [
           {width : 600, height: 600, url: './static/img/nodata1.png'}
           // { width: 600, height: 600, url: 'http://ocm0knkb1.bkt.clouddn.com/1-1.jpg' }
@@ -129,7 +147,7 @@ const SUCCESS_OK = '200'
         console.info(editor)
         editor.enable(true)   // 实现达到上限字符可删除
         if (this.SurplusLengthNum === 2000){
-          editor.enable(false)   // 实现达到上限字符可删除
+          // editor.enable(false)   // 实现达到上限字符可删除
         }
       },
       // 图片上传之前调取的函数
@@ -185,11 +203,11 @@ const SUCCESS_OK = '200'
         } else {
           this.SurplusLengthNum = 0
         }
-        // if (textLength >= _totalNum) {
-        //   this.MessageError('最多输入2000个字符')
-        //   quill.enable(false)
-        //   return
-        // }
+        if (textLength >= _totalNum) {
+          // this.MessageError('最多输入2000个字符')
+          // quill.enable(false)
+          return
+        }
       },
       // 新增 提交
       submitForm(formName) {
@@ -210,7 +228,7 @@ const SUCCESS_OK = '200'
       // 入学配置配置新增提交数据接口
       _fetchAddNews(){
         let loading = this.loading()
-        editAPP(this.eaaLogicId, this.ruleForm.titlename, '2', '1', this.bulletinLogicId, this.ruleForm.title, this.ruleForm.content ).then(res => {
+        editAPP(this.eaaLogicId, this.ruleForm.titlename, '2', '1', this.bulletinLogicId, this.ruleForm.title, this.ruleForm.content).then(res => {
           loading.close()
           console.info(res)
           if(res.data.state === SUCCESS_OK){
@@ -384,6 +402,7 @@ const SUCCESS_OK = '200'
     // height 400px
     // margin 10px 0 0 -80px
     padding-bottom 58px
+    // padding-bottom: 97px;
   .crop-demo
     display flex
     align-items flex-end

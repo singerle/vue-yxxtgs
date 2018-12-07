@@ -20,8 +20,8 @@ export function fetchBusin({school, majon, classes, title,  soucre,  year, state
   })
 }
 // 业务数据点击查看
-export function fetchInfo(userId , radio) {
-  let data = {userId}
+export function fetchInfo(userId , radio, title) {
+  let data = {userId,title}
   data = qs.stringify(data)
   let url = `${$HTTP}/enroll/count/selectUser`
   if (radio === 'other') {

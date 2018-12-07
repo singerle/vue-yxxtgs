@@ -38,7 +38,7 @@ export function combExcel({school, majon, classes, title,  soucre,  year, type, 
   return fetchDown({
     // url: 'https://dsn.apizza.net/mock/a36657f269d8bc38b9979c1bbf019699/comb',
     // url: `${$HTTP}/enroll/statistics/sex`,
-    url: `http://192.168.0.63:8086/enroll/statistics/export`,
+    url: `${$HTTP}/enroll/statistics/export`,
     method: 'post',
     data
   })

@@ -20,7 +20,7 @@
     		</li>
     		<li>
     			<div class="left">陪同人数</div>
-    			<div class="right" @click="ptrs=true">{{obj.ptrs?obj.ptrs:'请选择'}}</div>
+    			<div class="right" @click="ptrs=true">{{computedPtrs}}</div>
     		</li>
     	</ul>
     	<div class="save" @click="handleSave">保存</div>
@@ -87,6 +87,7 @@ import {setHjStu} from 'student/api/getHjxx'
 				ptrs: false,
 				slots: [],
 				ddsj: '',
+				save:'',
 				obj: {
 					ddsj: "",
 					jtgj: "",
@@ -102,6 +103,13 @@ import {setHjStu} from 'student/api/getHjxx'
 			}
 		},
 		computed: {
+			computedPtrs(){
+				if(this.obj.ptrs===''){
+					return '请选择'
+				}else{
+					return this.obj.ptrs===0||this.obj.ptrs?this.obj.ptrs:'请选择'
+				}
+			},
 			jtgjSlots() {
 				let gj = []
 				this.station.forEach((r, i) => {
@@ -123,7 +131,7 @@ import {setHjStu} from 'student/api/getHjxx'
 			check(){
 				let stu=true
 				for(var key in this.obj){
-					if(!this.obj[key]){
+					if(this.obj[key]===''){
 						console.log(key+'/'+this.obj[key])
 						stu = false
 					}
@@ -131,14 +139,45 @@ import {setHjStu} from 'student/api/getHjxx'
 				return stu
 			}
 		},
-		created(){
+		// created(){
+		// 	getCxblData().then((res) => {
+		// 		if(res.code == '40001'){
+		// 			this.ddsj = new Date(res.content.ddsj).format('yyyy-MM-dd hh:mm')
+		// 			res.content.ddsj =  new Date(res.content.ddsj).format('yyyyMMddhhmm')
+		// 			this.obj = Object.assign(this.obj, res.content)
+		// 		}
+		// 	})
+		// },
+		activated(){
 			getCxblData().then((res) => {
 				if(res.code == '40001'){
+					console.log(res)
 					this.ddsj = new Date(res.content.ddsj).format('yyyy-MM-dd hh:mm')
 					res.content.ddsj =  new Date(res.content.ddsj).format('yyyyMMddhhmm')
 					this.obj = Object.assign(this.obj, res.content)
 				}
 			})
+		},
+		created(){
+			getCxblData().then((res) => {
+				if(res.code == '40001'){console.log(res.content)
+					this.ddsj = new Date(res.content.ddsj).format('yyyy-MM-dd hh:mm')
+					res.content.ddsj =  new Date(res.content.ddsj).format('yyyyMMddhhmm')
+					this.obj = Object.assign(this.obj, res.content)
+					this.save = this.obj.jtgj
+					// this.$nextTick(() => {this.$watch('obj.jtgj', () =>{this.obj.ddz = ''})})
+				}
+				// this.$nextTick(() => {this.$watch('obj.jtgj', () =>{this.obj.ddz = ''})})
+			})
+			// 	this.obj.jtgj  = 111111
+			// 	this.obj.ddz = 222
+			// 	console.log(_)})
+			// this.$nextTick(() => {this.$watch('obj.jtgj', () =>{this.obj.ddz = ''})})
+			// setTimeout(() => {
+			// 	console.log("created")
+			// 	this.obj.jtgj  = 111111
+			// 	this.obj.ddz = 222
+			// },0)
 		},
 		methods:{
 			handleSave() {
@@ -162,6 +201,11 @@ import {setHjStu} from 'student/api/getHjxx'
 			confirm(key){
 				this[key] = false
 				this.obj[key] = this.$refs[key].values[0]
+				if(key=='jtgj'){
+					if(this.save != this.$refs[key].values[0]){
+						this.obj.ddz = ''
+					}
+				}
 			},
 			showDdz() {
 				if(this.obj.jtgj){

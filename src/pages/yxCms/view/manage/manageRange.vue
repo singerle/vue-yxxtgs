@@ -3,8 +3,8 @@
     <el-header class="header" height="35px">
       <span class="title header-item h-left">权限范围</span>
       <el-breadcrumb class="crumbs" separator-class="el-icon-arrow-right">
-        <el-breadcrumb-item>查看统计权限</el-breadcrumb-item>
-        <el-breadcrumb-item>{{manage.groupName}}</el-breadcrumb-item>
+        <el-breadcrumb-item to="/manage/index/list">查看统计权限</el-breadcrumb-item>
+        <el-breadcrumb-item to="/manage/index/list">{{manage.groupName}}</el-breadcrumb-item>
         <el-breadcrumb-item>权限范围</el-breadcrumb-item>
       </el-breadcrumb>
     </el-header>
@@ -20,7 +20,7 @@
           <span class="node-item node-item-left">{{ node.label }}</span>
           <span class="node-item node-item-right">
             <el-checkbox-group v-model="data.checked" @change="change(data)">
-              <el-checkbox label="可操作"></el-checkbox>
+              <el-checkbox label="可查询"></el-checkbox>
               <!-- <el-checkbox label="可分配"></el-checkbox> -->
             </el-checkbox-group>
           </span>
@@ -31,7 +31,7 @@
           <span class="node-item node-item-left">{{ node.label }}</span>
           <span class="node-item node-item-right">
             <el-checkbox-group v-model="data.checked" @change="changechil(node,data)">
-              <el-checkbox label="可操作"></el-checkbox>
+              <el-checkbox label="可查询"></el-checkbox>
               <!-- <el-checkbox v-show="data.children" label="可分配"></el-checkbox> -->
             </el-checkbox-group>
           </span>
@@ -41,10 +41,10 @@
     <el-footer>
       <el-row>
         <el-col :offset="10" :span="2">
-          <el-button @click="goBack">返回</el-button> 
+          <el-button type="primary" @click="save">保存</el-button> 
         </el-col>
         <el-col :span="2">
-          <el-button type="primary" @click="save">保存</el-button>
+          <el-button @click="goBack">返回</el-button>
         </el-col>
       </el-row>
     </el-footer>

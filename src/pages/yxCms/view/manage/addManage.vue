@@ -3,7 +3,7 @@
     <header class="header">
       <span class="title header-item">新增权限组</span>
       <el-breadcrumb class="crumbs" separator-class="el-icon-arrow-right">
-        <el-breadcrumb-item>查看统计权限</el-breadcrumb-item>
+        <el-breadcrumb-item to="/manage/index/list">查看统计权限</el-breadcrumb-item>
         <el-breadcrumb-item>新增权限组</el-breadcrumb-item>
       </el-breadcrumb>
     </header>
@@ -15,6 +15,7 @@
             placeholder="请输入权限组名称"
             v-model="input"
             size="mini"
+            maxlength="20"
             clearable>
           </el-input>
           <span class="msg">{{msg}}</span>
@@ -24,9 +25,9 @@
     </el-row>
     <el-row class="btn-wrapper">
       <el-col :span="8" class="btn-container">
-        <span class="btn-back btn" @click="back">返回</span>
         <span class="btn-add btn" @click="add" v-show="!manage.roleId">添加</span>
         <span class="btn-add btn" v-show="manage.roleId" @click="save">保存</span>
+        <span class="btn-back btn" @click="back">返回</span>
       </el-col>
     </el-row>
   </div>
@@ -36,6 +37,7 @@
 import { addManage, editManage } from 'oa/api/manage/index'
 const OK_CODE = '200'
 import { mapGetters } from 'vuex'
+import { reg } from 'oa/utils/dom'
 export default {
   data () {
     return {
@@ -59,12 +61,18 @@ export default {
       if (this.input === '') {
         this.msg = '输入不能够为空'
         return
+      } else if (!reg.test(this.input)) {
+        this.msg = '只能够输入中文、英文或者数字'
+        return
       }
       this._addManage()
     },
     save() {
       if (this.input === '') {
         this.msg = '输入不能够为空'
+        return
+      } else if (!reg.test(this.input)) {
+        this.msg = '只能够输入中文、英文或者数字'
         return
       }
       this._editManage()
@@ -94,14 +102,13 @@ export default {
     // 修改
     _editManage(){
       let loading = this.loading()
+      if(this.input!=this.manage.groupName){
       editManage(this.manage.roleId, this.input).then(res => {
         loading.close()
         res = res.data
         if (res.state === OK_CODE) {
           this.MessageSuccess(res.message)
-          this.$router.push({
-            path: '/manage/index/list'
-          })
+          this.$router.push({path: '/manage/index/list'})
         } else {
           this.MessageError(res.message)
         }
@@ -109,6 +116,10 @@ export default {
         loading.close()
         this.MessageError()
       })
+     }else{
+        this.MessageSuccess("保存成功！")
+        this.$router.push({path: '/manage/index/list'})
+      }
     }
   },
   created () {

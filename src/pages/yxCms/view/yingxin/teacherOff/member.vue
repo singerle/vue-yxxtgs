@@ -6,9 +6,9 @@
           <el-col  :span="12">
             <span class="only-title">成员管理</span>
             <el-breadcrumb class="crumbs" separator-class="el-icon-arrow-right">
-              <el-breadcrumb-item>{{teacherItem.processName}}</el-breadcrumb-item>
-              <el-breadcrumb-item>教师办公配置</el-breadcrumb-item>
-              <el-breadcrumb-item>{{teacher.groupName}}</el-breadcrumb-item>
+              <el-breadcrumb-item to="/yingxin/process">{{teacherItem.processName}}</el-breadcrumb-item>
+              <el-breadcrumb-item to="/yingxin/teacher">教师办公配置</el-breadcrumb-item>
+              <el-breadcrumb-item to="/yingxin/teacher">{{teacher.groupName}}</el-breadcrumb-item>
               <el-breadcrumb-item>成员管理</el-breadcrumb-item>
             </el-breadcrumb>
           </el-col>
@@ -70,47 +70,19 @@ export default {
       this._fetchAllMember()
     },
     // 点击删除
-    // del (item) {
-    //   let loading = this.loading()
-    //   this.$confirm('此操作将永久删除该成员, 是否继续?', '提示', {
-    //     confirmButtonText: '确定',
-    //     cancelButtonText: '取消',
-    //     type: 'warning'
-    //   }).then(() => {
-    //     delMember(item.userId, this.teacher.groupId).then(res => {
-    //       loading.close()
-    //       res = res.data
-    //       if (res.state === SUCCESS_OK) {
-    //         this.MessageSuccess(res.message)
-    //         // this.tableData = res
-    //         this.total = res.total--
-    //         console.log(res.data.rows)
-    //         console.log(item.groupId)
-    //         this.tableData = res.data.rows.filter(items => items.groupId != item.groupId)
-    //       } else {
-    //         this.MessageError(res.message)
-    //       }
-    //     })
-    //   }).catch(() => {     
-    //     loading.close()
-    //     this.MessageError(res.message)
-    //   })
-    // },
     del (item) {
-      let loading = this.loading()
       this.$confirm('此操作将永久删除该成员, 是否继续?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
+        let loading = this.loading()
         delMember(item.userId, this.teacher.groupId).then(res => {
           loading.close()
           res = res.data
           if (res.state === SUCCESS_OK) {
             this.MessageSuccess(res.message)
-
-            // this.tableData = this.tableData.filter(items => items.userId != item.userId)
-            // this.total = res.total--
+            // 回显数据
             this._fetchAllMember()
           } else {
             this.MessageError(res.message)

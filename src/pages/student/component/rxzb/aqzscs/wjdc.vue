@@ -23,7 +23,7 @@
 		<img src="static/student-index-pictures/rxzb-aqzscs-complete.png">
 		<p>恭喜您&nbsp;完成&nbsp;问卷调研&nbsp;&nbsp;</p>
 		</p>
-	  	<div class="return" @click = "$router.go(-1)">
+	  	<div class="return" @click = "toHome">
 	  		<span>返回首页</span>
 	  	</div>
 	</div>
@@ -67,6 +67,10 @@ export default {
   	}
   },
   methods:{
+  	toHome(){
+  		completeProcess({pauId: this.$store.getters.getHjid}).catch(completeProcess({pauId: this.$store.getters.getHjid}))
+  		this.$router.go(-1)
+  	},
   	compare(item,index){
   		var pageObj = this.info[this.num] //该页面内的整个数据对象
   		//var key = pageObj.options[optionsArr.indexOf(pageObj.key.toUpperCase())] //key为正确选项的那个对象
@@ -81,7 +85,7 @@ export default {
   				sendWjdcData({param:updateData}).then((res) => {
   					if(res.code==='40001'){
   						console.log(res.message)
-  						completeProcess({pauId: this.$store.getters.getHjid})
+  						completeProcess({pauId: this.$store.getters.getHjid}).catch(completeProcess({pauId: this.$store.getters.getHjid}))
   						this.completeShow = true
   					}else{
   						console.log('上传错误 error')

@@ -4,6 +4,7 @@ const getters = {
   code: state => state.teacher.code,
   search: state => state.teacher.search,
   token: state => state.teacher.token,
-  news: state => state.teacher.news
+  news: state => state.teacher.news,
+  states: state => state.teacher.states
 }
 export default getters

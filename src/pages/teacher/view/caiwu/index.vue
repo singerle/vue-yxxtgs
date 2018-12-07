@@ -50,7 +50,7 @@ export default {
         text: '加载中...',
         spinnerType: 'fading-circle'
       })
-      finance(this.userid, this.type, this.code).then(res => {
+      finance(this.userid, this.type, this.code, this.states).then(res => {
         Indicator.close()
         this.isShow = true
         res = res.data
@@ -72,7 +72,7 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'userid', 'type', 'code'
+      'userid', 'type', 'code', 'states'
     ])
   },
   mounted () {

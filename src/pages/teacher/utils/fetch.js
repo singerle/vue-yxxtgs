@@ -2,7 +2,7 @@ import axios from 'axios'
 import store from '../store/index'
 const server = axios.create({
   baseURL: process.env.BASE_API,
-  timeout: 10000
+  timeout: 50000
 })
 server.interceptors.request.use(config => {
   // 后期根据logId做处理

@@ -82,7 +82,7 @@ export default {
         spinnerType: 'fading-circle'
       })
       this.isShow = false
-      fetchInsurance(this.userid, this.type, this.code).then(res => {
+      fetchInsurance(this.userid, this.type, this.code, this.states).then(res => {
         Indicator.close()
         this.isShow = true
         res = res.data
@@ -116,7 +116,10 @@ export default {
         if (res.state === SUCCES_OK) {
           this.prop('办理成功')
           this._fetchInsurance()
-        } else {
+          setTimeout(() => {
+            this.$router.go(-1)
+          },1000)
+        }else{
           this.prop(res.message)
         }
       }).catch(e => {
@@ -137,8 +140,9 @@ export default {
         res = res.data
         if (res.state === SUCCES_OK) {
           this._fetchInsurance()
+        }else{
+          this.prop(res.message)
         }
-        this.prop(res.message)
       }).catch(_ => {
         this.prop('连接数据库失败')
       })
@@ -156,7 +160,7 @@ export default {
       return text[this.btnstate]
     },
     ...mapGetters([
-      'userid', 'code', 'type'
+      'userid', 'code', 'type', 'states'
     ])
   }
 }

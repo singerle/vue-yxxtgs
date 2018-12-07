@@ -1,6 +1,6 @@
 <template>
     <swiper :options="swiperOption" id="loop">
-      <swiper-slide v-for="(slide, data) in swiperSlides" :key="index">
+      <swiper-slide v-for="(slide, index) in data" :key="index">
         <div @click="togo(index)" class="pic" :style="{backgroundImage:`url('${slide}')`,backgroundSize:`100% 100%`}"></div>
       </swiper-slide>
       <div class="swiper-pagination" slot="pagination"></div>

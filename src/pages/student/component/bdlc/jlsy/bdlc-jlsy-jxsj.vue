@@ -50,6 +50,7 @@ export default {
 		top:0
 		bottom:0
 		background:#f7f7f7
+		width:100%
 		overflow:auto
 		.notice-detail
 			padding:0 0.12rem 1rem

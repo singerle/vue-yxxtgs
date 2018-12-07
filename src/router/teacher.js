@@ -10,11 +10,17 @@ import caiwu from 'teacher/view/caiwu/index'
 import search from 'teacher/view/search/index'
 import news from 'teacher/view/new/index'
 import newsinfo from 'teacher/view/new/newsInfo'
+import testpage from 'teacher/component/content'
 
 Vue.use(Router)
 
 export default new Router({
   routes: [
+    {
+      path: '/test',
+      name: 'test',
+      component: testpage
+    },
     {
       path: '/home',
       name: 'home',
@@ -73,7 +79,7 @@ export default new Router({
       component: newsinfo,
       meta: { 
         title: '走进理工'
-      }
+      },
     }
   ]
 })

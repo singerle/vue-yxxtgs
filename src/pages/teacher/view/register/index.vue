@@ -4,7 +4,7 @@
       <!-- <my-header :title="title" @back="back"></my-header> -->
       <user-info class="margin" :userInfo="userInfo" v-if="!noData"></user-info>
       <AllUser-info :AllUserInfo="AllUserInfo" class="margin" v-if="!noData" v-show="isCanel"></AllUser-info>
-      <content-wrapper class="margin" :content="content" v-if="!noData" v-show="isCanel"></content-wrapper>
+      <content-wrapper class="margin" :content="content" :info="jfxx" v-if="!noData" v-show="isCanel"></content-wrapper>
       <btn-wrapper class="btn-wrapper" @dispose="dispose" :text="text" :btnstate="btnstate" v-if="!noData" v-show="btnstate===0||btnstate===1||btnstate===3"></btn-wrapper>
       <mt-field  class="margin" placeholder="请输入撤销原因" type="textarea" rows="8" v-model="introduction" v-if="!noData"  v-show="!isCanel" @input="oninput"></mt-field>
       <marker-icon v-show="item.state === 1"></marker-icon>
@@ -23,7 +23,7 @@ import AllUserInfo from 'teacher/component/AllUserInfo'
 import NoData from 'teacher/component/NoData'
 import markerIcon from 'teacher/component/marker'
 import { MessageBox, Indicator } from 'mint-ui'
-import { fetchRegister, confirm, cancel } from 'teacher/api/teacher'
+import { fetchRegister, confirm, cancel, fetchJfxx} from 'teacher/api/teacher'
 import { User, UserInfo} from 'teacher/utils/setData'
 const SUCCES_OK = '200'
 export default {
@@ -45,7 +45,8 @@ export default {
       introduction: '',
       canelBtn: false,
       isShow: false, // 刚开始页面不显示
-      noData: false // 没有数据内容显示的无数据页面
+      noData: false, // 没有数据内容显示的无数据页面
+      jfxx:[]
     }
   },
   methods: {
@@ -98,7 +99,16 @@ export default {
         text: '加载中...',
         spinnerType: 'fading-circle'
       })
+      fetchJfxx(this.userid).then((res) => {
+        this.jfxx = res.data.content
+      })
       fetchRegister(this.userid, this.type, this.code).then(res => {
+        // this.prop('res'+res) //1260720200908
+        // this.prop('res.data'+res) //
+        // this.prop('res.data.data' + res.data.data)//
+        // alert('userid'+this.userid)
+        // alert('type'+this.type)
+        // alert('code'+this.code)
         Indicator.close()
         this.isShow = true
         res = res.data
@@ -107,7 +117,6 @@ export default {
         if (res.state === SUCCES_OK) {
           this.userInfo = new User(res.data)
           this.AllUserInfo = new UserInfo(res.data)
-          // alert(this.AllUserInfo.examineecode)
           this.content.desc = res.data.desc
           this.item = res.data
           this.isCanel = true
@@ -121,7 +130,7 @@ export default {
         this.noData = true
         this.isShow = true
         Indicator.close()
-        this.prop('连接数据库失败')
+        this.prop(_)
       })
     },
     // 确认办理
@@ -148,7 +157,7 @@ export default {
         }).catch(e => {
           Indicator.close()
           console.log(e)
-          this.prop('连接数据库失败')
+          this.prop(e)
         })
       // }
     },
@@ -173,7 +182,7 @@ export default {
           this.prop(res.message)
         }
       }).catch(_ => {
-        this.prop('连接数据库失败')
+        this.prop(_)
       })
     }
   },

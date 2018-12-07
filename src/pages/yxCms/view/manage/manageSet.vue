@@ -3,8 +3,8 @@
     <el-header class="header" height="35px">
       <span class="title header-item h-left">权限设置</span>
       <el-breadcrumb class="crumbs" separator-class="el-icon-arrow-right">
-        <el-breadcrumb-item>查看统计权限</el-breadcrumb-item>
-        <el-breadcrumb-item>{{manage.groupName}}</el-breadcrumb-item>
+        <el-breadcrumb-item to="/manage/index/list">查看统计权限</el-breadcrumb-item>
+        <el-breadcrumb-item to="/manage/index/list">{{manage.groupName}}</el-breadcrumb-item>
         <el-breadcrumb-item>权限设置</el-breadcrumb-item>
       </el-breadcrumb>
     </el-header>
@@ -27,8 +27,8 @@
       </el-table>
       <el-row class="btn-wrapper">
         <el-col :span="24" class="btn-container">
-          <span class="btn-back btn" @click="back">返回</span>
           <span class="btn-add btn" @click="save">保存</span>
+          <span class="btn-back btn" @click="back">返回</span>
         </el-col>
       </el-row>
     </el-main>
@@ -126,6 +126,14 @@ export default {
     .header-item
       display inline-block
       font-size $font-size-large
+    .crumbs
+      display inline-block
+      position relative
+      top 2px
+      left 11px
+      font-size 10px
+      border-left 2px solid #a7a7a7
+      padding-left 10px
     .h-left
       float left
     .h-right

@@ -22,7 +22,7 @@ export default {
       type: Object,
       default: function () {
         return {
-          title: '新闻公式',
+          title: '新闻公示',
           button: '新增'
         }
       }

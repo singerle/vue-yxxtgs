@@ -96,7 +96,7 @@ export default {
         text: '加载中...',
         spinnerType: 'fading-circle'
       })
-      fetchDormitory(this.userid, this.type, this.code).then(res => {
+      fetchDormitory(this.userid, this.type, this.code, this.states).then(res => {
         Indicator.close()
         res = res.data
         if (res.state === SUCCES_OK) {
@@ -178,7 +178,7 @@ export default {
       return text[this.btnstate]
     },   
     ...mapGetters([
-      'userid', 'code', 'type'
+      'userid', 'code', 'type', 'states'
     ])
   }
 }

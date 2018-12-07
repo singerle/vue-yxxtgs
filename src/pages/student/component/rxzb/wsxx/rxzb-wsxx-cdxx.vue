@@ -122,7 +122,7 @@
 								this.container = []
 								this.save = []
 							}else{
-								this.errorMessage = "请检查其他页面信息是否填写完整"
+								this.errorMessage = res.message
 								this.FisShow=!this.FisShow
 								var timer = null
 								timer = setTimeout(()=>{

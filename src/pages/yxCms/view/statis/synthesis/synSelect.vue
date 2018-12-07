@@ -2,14 +2,14 @@
   <div class="synSelect">
     <!-- 第一行 -->
     <el-row type="flex">
-      <el-col :span="3" class="yxxt-col" v-if="options.year" >
+      <el-col :span="4" class="yxxt-col" v-if="options.year" >
         <label>所在年度 </label>
         <el-select v-model="option.year" placeholder="请选择" class="yxxt-select" size="mini"  @change="changeYear">
           <el-option v-for="item in options.year" :key="item" :label="item" :value="item" class="yxxt-option">
           </el-option>
         </el-select>
       </el-col>
-      <el-col :span="3" class="yxxt-col" v-if="options.title">
+      <el-col :span="4" class="yxxt-col" v-if="options.title">
         <label>迎新系统 </label>
         <el-select v-model="option.title" placeholder="请选择" class="yxxt-select" size="mini">
           <el-option v-for="item in options.title" :key="item.id" :label="item.name" :value="item.id" class="yxxt-option">
@@ -18,28 +18,28 @@
       </el-col>
     </el-row>
     <el-row type="flex">
-      <el-col :span="3" class="yxxt-col" v-if="options.school">
+      <el-col :span="4" class="yxxt-col" v-if="options.school">
         <label>所在院校 </label>
         <el-select v-model="option.school" placeholder="请选择" class="yxxt-select" size="mini" @change="changeSchool">
           <el-option v-for="item in options.school" :key="item.id" :label="item.name" :value="item.id" class="yxxt-option">
           </el-option>
         </el-select>
       </el-col>
-      <el-col :span="3" class="yxxt-col" v-if="options.majon">
+      <el-col :span="4" class="yxxt-col" v-if="options.majon">
         <label>所在专业 </label>
         <el-select v-model="option.majon" placeholder="请选择" class="yxxt-select" size="mini" @change="changeMajon">
           <el-option v-for="item in options.majon" :key="item.id" :label="item.name" :value="item.id" class="yxxt-option">
           </el-option>
         </el-select>
       </el-col>
-      <el-col :span="3" class="yxxt-col" v-if="options.class">
+      <el-col :span="4" class="yxxt-col" v-if="options.class">
         <label>所在班级 </label>
         <el-select v-model="option.classes" placeholder="请选择" class="yxxt-select" size="mini">
           <el-option v-for="item in options.class" :key="item.id" :label="item.name" :value="item.id" class="yxxt-option">
           </el-option>
         </el-select>
       </el-col>
-      <el-col :span="3" class="yxxt-col"  v-if="options.soucre">
+      <el-col :span="4" class="yxxt-col"  v-if="options.soucre">
         <label>生源类型 </label>
         <el-select v-model="option.soucre" placeholder="请选择" class="yxxt-select" size="mini">
           <el-option v-for="item in options.soucre" :key="item" :label="item" :value="item" class="yxxt-option">
@@ -123,7 +123,7 @@
           res = res.data
           if (res.state === OK_CODE) {
             this.options.majon = res.data.majon // 重置专业
-            this.options.classes = res.data.class // 重置班级
+            this.options.class = res.data.class // 重置班级
             this.option.majon = this.options.majon.length > 0 ? this.options.majon[0].id : ''
             this.option.classes = this.options.class.length > 0 ? this.options.class[0].id :''
           }
@@ -140,8 +140,8 @@
           loading.close()
           res = res.data
           if (res.state === OK_CODE) {
-            this.options.classes = res.data.class // 重置班级
-            this.option.classes = this.options.length > 0 ? this.options.class[0].id : ''
+            this.options.class = res.data.class // 重置班级
+            this.option.classes = this.options.class.length > 0 ? this.options.class[0].id : ''
           }
         }).catch(_ => {
           loading.close()
