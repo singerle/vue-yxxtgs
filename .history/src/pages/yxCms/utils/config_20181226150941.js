@@ -6,14 +6,14 @@
 // export const $HTTP = 'http://192.168.0.140:8086'
 // export const $LoadHTTP = 'http://yx.cqut.edu.cn'//理工
 // export const $LoadHTTP = 'http://192.168.0.24:80'
-// export const $LoadHTTP = 'http://192.168.0.56:8086'
+export const $LoadHTTP = 'http://192.168.0.56:8086'
 // export const $LoadHTTP = 'http://192.168.0.163:8086'
 // export const $HTTP = 'http://gl.yx.cqut.edu.cn'//理工
 // export const $HTTP = 'http://zsyx.ctbu.edu.cn:80'
 //export const $HTTP = 'http://www.yunhuakeji.com:10071'
 // export const $HTTP = 'http://192.168.0.24:80'
 // export const $HTTP = 'http://192.168.0.56:80'
-// export const $HTTP = 'http://192.168.0.56:8086'
+export const $HTTP = 'http://192.168.0.56:8086'
 // export const $HTTP = 'http://192.168.0.136:8086'
  // export const $HTTP = 'http://yx.i.cqut.edu.cn'
 // export const $HTTP = 'http://192.168.0.48:8086'
@@ -33,5 +33,5 @@
 // export const $HTTP = 'http://192.168.0.103:8080'
 // export const $HTTP = 'http://jxzl.cqvie.edu.cn:11003'//工程职业学院
 // export const $LoadHTTP = 'http://jxzl.cqvie.edu.cn:11003'//工程职业学院
-export const $HTTP = 'http://192.168.0.56:8082'
+// export const $HTTP = 'http://192.168.0.56:8082'
 

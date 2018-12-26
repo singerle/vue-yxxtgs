@@ -2,7 +2,7 @@
   <div class="navbar">
     <img src="static/logo.png">
     <span class="systemName">迎新管理系统</span>
-    <span class="schoolName">重庆工商大学</span>
+    <span class="schoolName">重庆理工大学</span>
     <el-dropdown class="el-dropdown">
       <span class="el-dropdown-link">
         <img class="avatar" :src="isavatar"/>
