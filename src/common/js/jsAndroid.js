@@ -6,49 +6,53 @@
  */
 
 let jsAndroid = {
+
 	//扫码
 	barcode: {
-		scan: function(){
+		scan: function () {
 			var d = jsAndroid.jsAndroidCallback()
-			window.jsAndroid.scan()
+			jsAndroid.is_android() ? window.jsAndroid.scan() : window.webkit.messageHandlers.scan.postMessage('');
 			return d
 		},
-		scanBtn: function(){
+		scanBtn: function () {
+			// alert(jsAndroid.is_android())
 			var d = jsAndroid.jsAndroidCallback()
-			window.jsAndroid.scanBtn()
+			jsAndroid.is_android() ? window.jsAndroid.scanBtn() : window.webkit.messageHandlers.scanBtn.postMessage('');
 			return d
 		}
 	},
 	//分享
 	share: {
 		//分享连接
-		shareHref: function(p){
+		shareHref: function (p) {
 			var d = jsAndroid.jsAndroidCallback()
 			window.jsAndroid.shareHref(p)
 			return d
 		},
 		//分享文字
-		shareText: function(p){
+		shareText: function (p) {
 			var d = jsAndroid.jsAndroidCallback()
 			window.jsAndroid.shareText(p)
 			return d
 		}
 	},
-	//图片保存
-	saveImage: {
-		save: function(p){
-			var d = jsAndroid.jsAndroidCallback()
-			window.jsAndroid.saveImage(p)
-			return d
-		}
-	},
 	//callback回调
-	jsAndroidCallback(){
+	jsAndroidCallback () {
 		return new Promise((resolve) => {
-				window["receiveMsgFromNative"] = function (msg) {
-				  resolve(msg)
-				}
-			});
+			window["receiveMsgFromNative"] = function (msg) {
+				resolve(msg)
+			}
+		});
+	},
+	//判断系统环境,return true表示为Android
+	is_android () {
+		var ua = window.navigator.userAgent.toLowerCase();
+		if (ua.match(/MicroMessenger/i) == 'micromessenger' || ua.match('linux') == "linux") {
+			return true;
+		} else {
+			return false;
+		}
+
 	}
 }
 
