@@ -2,6 +2,7 @@
 node_modules/
 yxxt/
 dist/
+.history/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
@@ -12,3 +13,4 @@ yxxt.rar
 *.ntvs*
 *.njsproj
 *.sln
+*.history
