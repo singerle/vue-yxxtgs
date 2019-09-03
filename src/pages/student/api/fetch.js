@@ -4,6 +4,9 @@ const server = axios.create({
   baseURL: process.env.BASE_API,
   timeout: 10000
 })
+if (store.getters.getuser.userid) {
+  sessionStorage.setItem('loginSum', store.getters.getuser.userid)
+}
 server.interceptors.request.use(config => {
   // 后期根据logId做处理
   config.headers['token'] = store.getters.getuser.userid
